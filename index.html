@@ -4,146 +4,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dellah's Fasting Companion</title>
-    <!-- Fixed CSS Path -->
     <link rel="stylesheet" href="./styles.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Manifest -->
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#6c5ce7">
-    <!-- iOS PWA Support -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- iOS Support -->
     <link rel="apple-touch-icon" href="./icons/icon-192.png">
-    <!-- Android Splash -->
-    <link rel="stylesheet" href="https://unpkg.com/pwa-splash-screen@0.2.0/dist/splash.css">
-    <style>
-        /* Fallback in case CSS doesn't load */
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        .app-container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-    </style>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
     <div class="app-container">
-        <!-- Header -->
         <header>
             <h1><i class="fas fa-clock"></i> Fasting Companion</h1>
-            <div class="streak-counter">
-                <span id="streak">🔥 0-day streak</span>
-            </div>
+            <div class="streak">🔥 <span id="streak-count">0</span> day streak</div>
         </header>
 
-        <!-- Main Dashboard -->
-        <div class="dashboard">
-            <!-- Fasting Control Panel -->
-            <div class="card fasting-card">
+        <main>
+            <!-- Timer Section -->
+            <section class="card timer-card">
                 <h2><i class="fas fa-fire-alt"></i> Fasting Timer</h2>
                 <div class="protocol-selector">
-                    <select id="fastingProtocol">
+                    <select id="protocol">
                         <option value="16">16:8 Protocol</option>
                         <option value="18">18:6 Protocol</option>
                         <option value="20">20:4 Protocol</option>
-                        <option value="custom">Custom</option>
+                        <option value="custom">Custom Hours</option>
                     </select>
-                    <input type="number" id="customHours" placeholder="Hours" style="display:none;">
+                    <input type="number" id="custom-hours" placeholder="Hours" style="display:none">
                 </div>
-                
-                <div class="circular-progress">
-                    <div class="progress-circle">
-                        <svg class="progress-ring" width="120" height="120">
-                            <circle class="progress-ring-circle" stroke-width="8" fill="transparent" r="52" cx="60" cy="60"/>
-                        </svg>
-                        <div class="progress-text" id="timeSpent">00:00:00</div>
-                    </div>
+                <div class="timer-display" id="timer">00:00:00</div>
+                <div class="progress-bar">
+                    <div id="progress"></div>
                 </div>
-                
-                <div class="action-buttons">
-                    <button id="startFasting" class="btn-primary"><i class="fas fa-play"></i> Start</button>
-                    <button id="pauseResume" class="btn-secondary" disabled><i class="fas fa-pause"></i> Pause</button>
-                    <button id="endFasting" class="btn-danger"><i class="fas fa-stop"></i> End</button>
+                <div class="timer-controls">
+                    <button id="start-btn" class="btn-primary"><i class="fas fa-play"></i> Start Fast</button>
+                    <button id="pause-btn" class="btn-secondary" disabled><i class="fas fa-pause"></i> Pause</button>
+                    <button id="end-btn" class="btn-danger" disabled><i class="fas fa-stop"></i> End Fast</button>
                 </div>
-            </div>
+            </section>
 
             <!-- Health Metrics -->
-            <div class="card metrics-card">
+            <section class="card metrics-card">
                 <h2><i class="fas fa-chart-line"></i> Health Metrics</h2>
+                
                 <div class="metric-group">
-                    <label>Weight (kg)</label>
-                    <input type="number" id="weightBefore" placeholder="Before">
-                    <input type="number" id="weightAfter" placeholder="After" disabled>
-                </div>
-                <div class="metric-group">
-                    <label>Water Intake (ml)</label>
-                    <div class="water-controls">
-                        <button id="addWater"><i class="fas fa-plus"></i></button>
-                        <span id="waterAmount">0</span>
-                        <button id="subtractWater"><i class="fas fa-minus"></i></button>
+                    <h3><i class="fas fa-weight"></i> Weight Tracking</h3>
+                    <div class="weight-input">
+                        <label>Before (kg):</label>
+                        <input type="number" id="weight-before" step="0.1">
+                    </div>
+                    <div class="weight-input">
+                        <label>After (kg):</label>
+                        <input type="number" id="weight-after" step="0.1" disabled>
                     </div>
                 </div>
+
                 <div class="metric-group">
-                    <label>Energy Level</label>
+                    <h3><i class="fas fa-tint"></i> Water Intake</h3>
+                    <div class="water-tracker">
+                        <button id="water-minus" class="btn-icon"><i class="fas fa-minus"></i></button>
+                        <span id="water-count">0</span> ml
+                        <button id="water-plus" class="btn-icon"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+
+                <div class="metric-group">
+                    <h3><i class="fas fa-battery-three-quarters"></i> Energy Level</h3>
                     <div class="energy-levels">
-                        <span class="energy-btn" data-level="1">😴</span>
-                        <span class="energy-btn" data-level="2">😕</span>
-                        <span class="energy-btn" data-level="3">😐</span>
-                        <span class="energy-btn" data-level="4">😊</span>
-                        <span class="energy-btn" data-level="5">💪</span>
+                        <span data-level="1">😴</span>
+                        <span data-level="2">😕</span>
+                        <span data-level="3">😐</span>
+                        <span data-level="4">😊</span>
+                        <span data-level="5">💪</span>
                     </div>
                 </div>
-            </div>
-        </div>
+            </section>
 
-        <!-- Journal Section -->
-        <div class="card journal-card">
-            <h2><i class="fas fa-book"></i> Fasting Journal</h2>
-            <textarea id="fastingNotes" placeholder="How are you feeling? Track cravings, energy levels..."></textarea>
-            <button id="saveNotes" class="btn-primary">Save Notes</button>
-        </div>
+            <!-- Journal -->
+            <section class="card journal-card">
+                <h2><i class="fas fa-book"></i> Fasting Journal</h2>
+                <textarea id="journal-entry" placeholder="How are you feeling?"></textarea>
+                <button id="save-journal" class="btn-primary"><i class="fas fa-save"></i> Save Entry</button>
+            </section>
 
-        <!-- History Section -->
-        <div class="card history-card">
-            <h2><i class="fas fa-history"></i> Fasting History</h2>
-            <div class="table-container">
-                <table id="historyTable">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Protocol</th>
-                            <th>Weight Δ</th>
-                            <th>Water</th>
-                            <th>Energy</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </div>
+            <!-- History -->
+            <section class="card history-card">
+                <h2><i class="fas fa-history"></i> Fasting History</h2>
+                <div class="table-container">
+                    <table id="history-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Duration</th>
+                                <th>Weight Δ</th>
+                                <th>Water</th>
+                                <th>Energy</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
     </div>
 
-    <!-- Fixed JS Path -->
     <script src="./script.js"></script>
-    <!-- Splash Screen Script -->
-    <script src="https://unpkg.com/pwa-splash-screen@0.2.0/dist/splash.js"></script>
-    <script>
-        // Verify CSS loading
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM fully loaded');
-            
-            // Fallback check for CSS
-            setTimeout(function() {
-                if (!document.styleSheets || document.styleSheets.length === 0) {
-                    document.body.innerHTML += '<div style="position:fixed;top:0;left:0;right:0;background:red;color:white;padding:10px;z-index:9999">CSS failed to load! Check file paths.</div>';
-                }
-            }, 500);
-        });
-    </script>
 </body>
-</html> 
+</html>

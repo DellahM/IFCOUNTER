@@ -1,0 +1,72 @@
+{
+    "name": "Dellah's Fasting Companion",
+    "short_name": "FastTrack",
+    "start_url": "/IF-Counter/",
+    "scope": "/IF-Counter/",
+    "display": "standalone",
+    "background_color": "#2d3436",
+    "theme_color": "#6c5ce7",
+    "description": "Track intermittent fasting with health metrics",
+    "orientation": "portrait-primary",
+    "icons": [
+      {
+        "src": "icons/icon-72.png",
+        "sizes": "72x72",
+        "type": "image/png"
+      },
+      {
+        "src": "icons/icon-96.png",
+        "sizes": "96x96",
+        "type": "image/png"
+      },
+      {
+        "src": "icons/icon-128.png",
+        "sizes": "128x128",
+        "type": "image/png"
+      },
+      {
+        "src": "icons/icon-144.png",
+        "sizes": "144x144",
+        "type": "image/png"
+      },
+      {
+        "src": "icons/icon-192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any"
+      },
+      {
+        "src": "icons/icon-512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      },
+      {
+        "src": "icons/icon-512-maskable.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "maskable"
+      }
+    ],
+    "screenshots": [
+      {
+        "src": "screenshots/mobile.png",
+        "sizes": "375x812",
+        "type": "image/png",
+        "form_factor": "narrow",
+        "label": "Mobile View"
+      },
+      {
+        "src": "screenshots/desktop.png",
+        "sizes": "1920x1080",
+        "type": "image/png",
+        "form_factor": "wide",
+        "label": "Desktop View"
+      }
+    ],
+    "features": [
+      "Fast loading",
+      "Offline functionality",
+      "Health tracking"
+    ],
+    "categories": ["health", "productivity"]
+  }

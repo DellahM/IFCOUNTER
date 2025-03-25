@@ -1,0 +1,18 @@
+@media (prefers-color-scheme: light) {
+    :root {
+      --splash-color: #f5f6fa;
+      --splash-text-color: #2d3436;
+    }
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --splash-color: #2d3436;
+      --splash-text-color: #f5f6fa;
+    }
+  }
+  
+  .pwa-splash-screen {
+    background: var(--splash-color) url('icons/icon-512.png') no-repeat center / 25%;
+    color: var(--splash-text-color);
+  }

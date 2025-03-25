@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#6c5ce7">
+    <title>IF Counter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- PWA Meta Tags -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6c5ce7">
+
+<!-- iOS PWA Support -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+
+<!-- Android Splash Screen -->
+<link rel="stylesheet" href="https://unpkg.com/pwa-splash-screen@0.2.0/dist/splash.css">
+<script src="https://unpkg.com/pwa-splash-screen@0.2.0/dist/splash.js"></script>
+
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header>
+            <h1><i class="fas fa-clock"></i> IF Fasting Counter</h1>
+            <div class="streak-counter">
+                <span id="streak">🔥 0-day streak</span>
+            </div>
+        </header>
+
+        <!-- Main Dashboard -->
+        <div class="dashboard">
+            <!-- Fasting Control Panel -->
+            <div class="card fasting-card">
+                <h2><i class="fas fa-fire-alt"></i> Fasting Timer</h2>
+                <div class="protocol-selector">
+                    <select id="fastingProtocol">
+                        <option value="16">16:8 Protocol</option>
+                        <option value="18">18:6 Protocol</option>
+                        <option value="20">20:4 Protocol</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                    <input type="number" id="customHours" placeholder="Hours" style="display:none;">
+                </div>
+                
+                <div class="circular-progress">
+                    <div class="progress-circle">
+                        <svg class="progress-ring" width="120" height="120">
+                            <circle class="progress-ring-circle" stroke-width="8" fill="transparent" r="52" cx="60" cy="60"/>
+                        </svg>
+                        <div class="progress-text" id="timeSpent">00:00:00</div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="startFasting" class="btn-primary"><i class="fas fa-play"></i> Start</button>
+                    <button id="pauseResume" class="btn-secondary" disabled><i class="fas fa-pause"></i> Pause</button>
+                    <button id="endFasting" class="btn-danger"><i class="fas fa-stop"></i> End</button>
+                </div>
+            </div>
+
+            <!-- Health Metrics -->
+            <div class="card metrics-card">
+                <h2><i class="fas fa-chart-line"></i> Health Metrics</h2>
+                <div class="metric-group">
+                    <label>Weight (kg)</label>
+                    <input type="number" id="weightBefore" placeholder="Before">
+                    <input type="number" id="weightAfter" placeholder="After" disabled>
+                </div>
+                <div class="metric-group">
+                    <label>Water Intake (ml)</label>
+                    <div class="water-controls">
+                        <button id="addWater"><i class="fas fa-plus"></i></button>
+                        <span id="waterAmount">0</span>
+                        <button id="subtractWater"><i class="fas fa-minus"></i></button>
+                    </div>
+                </div>
+                <div class="metric-group">
+                    <label>Energy Level</label>
+                    <div class="energy-levels">
+                        <span class="energy-btn" data-level="1">😴</span>
+                        <span class="energy-btn" data-level="2">😕</span>
+                        <span class="energy-btn" data-level="3">😐</span>
+                        <span class="energy-btn" data-level="4">😊</span>
+                        <span class="energy-btn" data-level="5">💪</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journal Section -->
+        <div class="card journal-card">
+            <h2><i class="fas fa-book"></i> Fasting Journal</h2>
+            <textarea id="fastingNotes" placeholder="How are you feeling? Track cravings, energy levels..."></textarea>
+            <button id="saveNotes" class="btn-primary">Save Notes</button>
+        </div>
+
+        <!-- History Section -->
+        <div class="card history-card">
+            <h2><i class="fas fa-history"></i> Fasting History</h2>
+            <div class="table-container">
+                <table id="historyTable">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Protocol</th>
+                            <th>Weight Δ</th>
+                            <th>Water</th>
+                            <th>Energy</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

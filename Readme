@@ -1,0 +1,28 @@
+# Dellahs IF Counter
+
+## Overview
+
+Dellahs IF Counter is a simple web application designed to help users track their intermittent fasting periods. The application allows users to input their weight before and after fasting, start a 72-hour fasting timer, and view their fasting history. It also provides encouragement based on weight loss targets reached.
+
+## Features
+
+- Input weight before and after fasting (in lbs or kg).
+- Start a 72-hour fasting timer with a countdown display.
+- View fasting history in a table format.
+- Encouragement messages based on weight loss achievements.
+- Responsive design for a better user experience.
+
+## Technologies Used
+
+- HTML
+- CSS
+- JavaScript
+
+## Getting Started
+
+To run the application locally, follow these steps:
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/DellahM/Dellahs-IF-Counter.git

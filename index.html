@@ -3,52 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dellah's Fasting Companion</title>
+    <title>Dellah's Fasting Counter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="./styles.css">
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#6c5ce7">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- iOS Support -->
     <link rel="apple-touch-icon" href="./icons/icon-192.png">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <style>
+        /* Fallback styles */
+        body { padding: 10px; font-size: 14px; }
+        button { padding: 6px 10px; }
+    </style>
 </head>
 <body>
     <div class="app-container">
         <header>
-            <h1><i class="fas fa-clock"></i> Fasting Companion</h1>
-            <div class="streak">🔥 <span id="streak-count">0</span> day streak</div>
+            <h1><i class="fas fa-clock"></i>Intermittent Fasting Counter </h1>
+            <div class="streak">🔥 <span id="streak-count">0</span>d</div>
         </header>
 
-        <main>
-            <!-- Timer Section -->
-            <section class="card timer-card">
-                <h2><i class="fas fa-fire-alt"></i> Fasting Timer</h2>
+        <!-- Tab System -->
+        <div class="tab-container">
+            <div class="tab active" data-tab="timer">Timer</div>
+            <div class="tab" data-tab="metrics">Metrics</div>
+            <div class="tab" data-tab="history">History</div>
+        </div>
+
+        <!-- Timer Tab -->
+        <div class="tab-content active" id="timer-tab">
+            <div class="card">
                 <div class="protocol-selector">
                     <select id="protocol">
-                        <option value="16">16:8 Protocol</option>
-                        <option value="18">18:6 Protocol</option>
-                        <option value="20">20:4 Protocol</option>
-                        <option value="custom">Custom Hours</option>
+                      <option value="16">16:8 Protocol</option>
+                      <option value="18">18:6 Protocol</option>
+                      <option value="20">20:4 Protocol</option>
+                      <option value="custom">Custom Hours</option>
                     </select>
-                    <input type="number" id="custom-hours" placeholder="Hours" style="display:none">
-                </div>
+                    <input type="number" id="custom-hours" placeholder="Hours" style="display: none; margin-top: 8px;">
+                  </div>
+                
                 <div class="timer-display" id="timer">00:00:00</div>
+                
                 <div class="progress-bar">
                     <div id="progress"></div>
                 </div>
-                <div class="timer-controls">
-                    <button id="start-btn" class="btn-primary"><i class="fas fa-play"></i> Start Fast</button>
-                    <button id="pause-btn" class="btn-secondary" disabled><i class="fas fa-pause"></i> Pause</button>
-                    <button id="end-btn" class="btn-danger" disabled><i class="fas fa-stop"></i> End Fast</button>
-                </div>
-            </section>
-
-            <!-- Health Metrics -->
-            <section class="card metrics-card">
-                <h2><i class="fas fa-chart-line"></i> Health Metrics</h2>
                 
-                <div class="metric-group">
-                    <h3><i class="fas fa-weight"></i> Weight Tracking</h3>
+                <div class="timer-controls">
+                    <button id="start-btn" class="btn-primary"><i class="fas fa-play"></i> Start</button>
+                    <button id="pause-btn" class="btn-secondary" disabled><i class="fas fa-pause"></i> Pause</button>
+                    <button id="end-btn" class="btn-danger" disabled><i class="fas fa-stop"></i> End</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Metrics Tab -->
+        <div class="tab-content" id="metrics-tab">
+            <div class="card collapsible">
+                <div class="collapsible-header">
+                    <h3><i class="fas fa-weight"></i> Weight</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="collapsible-content">
                     <div class="weight-input">
                         <label>Before (kg):</label>
                         <input type="number" id="weight-before" step="0.1">
@@ -58,18 +75,28 @@
                         <input type="number" id="weight-after" step="0.1" disabled>
                     </div>
                 </div>
+            </div>
 
-                <div class="metric-group">
-                    <h3><i class="fas fa-tint"></i> Water Intake</h3>
+            <div class="card collapsible">
+                <div class="collapsible-header">
+                    <h3><i class="fas fa-tint"></i> Water</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="collapsible-content">
                     <div class="water-tracker">
                         <button id="water-minus" class="btn-icon"><i class="fas fa-minus"></i></button>
                         <span id="water-count">0</span> ml
                         <button id="water-plus" class="btn-icon"><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
+            </div>
 
-                <div class="metric-group">
-                    <h3><i class="fas fa-battery-three-quarters"></i> Energy Level</h3>
+            <div class="card collapsible">
+                <div class="collapsible-header">
+                    <h3><i class="fas fa-battery-three-quarters"></i> Energy</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="collapsible-content">
                     <div class="energy-levels">
                         <span data-level="1">😴</span>
                         <span data-level="2">😕</span>
@@ -78,25 +105,19 @@
                         <span data-level="5">💪</span>
                     </div>
                 </div>
-            </section>
+            </div>
+        </div>
 
-            <!-- Journal -->
-            <section class="card journal-card">
-                <h2><i class="fas fa-book"></i> Fasting Journal</h2>
-                <textarea id="journal-entry" placeholder="How are you feeling?"></textarea>
-                <button id="save-journal" class="btn-primary"><i class="fas fa-save"></i> Save Entry</button>
-            </section>
-
-            <!-- History -->
-            <section class="card history-card">
-                <h2><i class="fas fa-history"></i> Fasting History</h2>
+        <!-- History Tab -->
+        <div class="tab-content" id="history-tab">
+            <div class="card">
                 <div class="table-container">
                     <table id="history-table">
                         <thead>
                             <tr>
                                 <th>Date</th>
                                 <th>Duration</th>
-                                <th>Weight Δ</th>
+                                <th>Δ Weight</th>
                                 <th>Water</th>
                                 <th>Energy</th>
                             </tr>
@@ -104,8 +125,13 @@
                         <tbody></tbody>
                     </table>
                 </div>
-            </section>
-        </main>
+            </div>
+        </div>
+
+        <!-- Compact Mode Toggle -->
+        <div class="compact-toggle">
+            <button id="toggle-compact"><i class="fas fa-compress-alt"></i> Compact Mode</button>
+        </div>
     </div>
 
     <script src="./script.js"></script>

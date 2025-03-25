@@ -6,7 +6,7 @@
 
 A beautifully designed intermittent fasting tracker with health metrics, water intake monitoring, and fasting journal.
 
-🔗 **Live Demo**: [https://dellahm.github.io/IF-Counter](https://dellahm.github.io/IF-Counter)
+🔗 **Live Demo**: [https://dellahm.github.io/IFCOUNTER/](https://dellahm.github.io/IF-Counter)
 
 ![App Screenshot](https://i.imgur.com/JqkX5bT.png)  
 *(Screenshot placeholder - replace with your actual screenshot)*
